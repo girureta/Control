@@ -1,0 +1,13 @@
+{
+  "name": "com.girureta.control",
+  "displayName": "Control",
+  "description": "Driver for testing applications",
+  "version": "0.0.1",
+  "unity": "2021.2",
+  "unityRelease": "1f1",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "2.0.0",
+    "nuget.moq": "1.0.0"
+  },
+  "relatedPackages": {}
+}
