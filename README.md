@@ -6,6 +6,7 @@
   - [Setup](#setup)
   - [Manual run](#manual-run)
   - [Automated run](#automated-run)
+  - [Android](#android)
 - [Customizing / Extending.](#customizing--extending)
 - [Dependencies:](#dependencies)
 - [Future experiments](#future-experiments)
@@ -59,6 +60,14 @@ The application may be run manually both in the Editor and as a build, after whi
 In automated scenarions you can use Appium Hub with Appium client libraries to install/start/uninstall for you the Unity application in Windows/Android/iOS.
 
 When the application is running you can start the tests that point towards the **Control** driver's URl and target the actual content.
+
+## Android
+
+To connect to an Android app running on a device on port 4723, create a [bridge](https://developer.android.com/studio/command-line/adb) to the device:
+> adb forward tcp:4723 tcp:4723
+ 
+Then point your client to:
+> localhost:4723
 
 # Customizing / Extending.
 
