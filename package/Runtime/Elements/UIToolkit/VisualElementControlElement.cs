@@ -46,11 +46,12 @@ namespace Control
 
         public override void SendKeys(string value)
         {
-            sourceObject.Focus();
+            if (sourceObject.focusController.focusedElement != sourceObject)
+                sourceObject.Focus();
 
             foreach (var key in value)
             {
-                using (var e = KeyDownEvent.GetPooled(key, KeyCode.A, EventModifiers.None))
+                using (var e = KeyDownEvent.GetPooled(key, KeyCode.None, EventModifiers.None))
                 {
                     sourceObject.SendEvent(e);
                 }

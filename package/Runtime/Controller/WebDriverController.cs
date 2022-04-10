@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using UnityEngine;
 
 namespace Control.WebDriver
 {
@@ -19,11 +20,21 @@ namespace Control.WebDriver
         private readonly ThreadHelper helper;
         private Session session;
 
+        private readonly string app;
+        private readonly string platformName;
+        private readonly string automationName;
+        private readonly string deviceName;
+
         public WebDriverController(Driver uiDriver, TaskScheduler taskScheduler)
         {
             this.uiDriver = uiDriver ?? throw new System.ArgumentNullException(nameof(uiDriver));
             this.taskScheduler = taskScheduler ?? throw new System.ArgumentNullException(nameof(taskScheduler));
             helper = new ThreadHelper(taskScheduler);
+
+            app = Application.productName;
+            platformName = Application.platform.ToString();
+            automationName = "Control";
+            deviceName = SystemInfo.deviceName;
         }
 
         [Route(HttpVerb.Post, "/session")]
@@ -42,10 +53,10 @@ namespace Control.WebDriver
                 status = 0,
                 value = new Value
                 {
-                    app = body.desiredCapabilities.app,
-                    platformName = body.desiredCapabilities.platformName,
-                    automationName = body.desiredCapabilities.AppiumAutomationName,
-                    deviceName = body.desiredCapabilities.AppiumDeviceName,
+                    app = this.app,
+                    platformName = this.platformName,
+                    automationName = this.automationName,
+                    deviceName = this.deviceName,
                     newCommandTimeout = body.desiredCapabilities.AppiumNewCommandTimeout,
                     connectHardwareKeyboard = body.desiredCapabilities.AppiumConnectHardwareKeyboard
                 }
