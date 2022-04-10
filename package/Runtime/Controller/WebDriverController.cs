@@ -59,6 +59,12 @@ namespace Control.WebDriver
             return session;
         }
 
+        [Route(HttpVerb.Delete, "/session/{id}")]
+        public GenericResponse deleteSession(string id)
+        {
+            return new GenericResponse { value = null };
+        }
+
         [Route(HttpVerb.Get, "/session/{id}/window_handle")]
         public GenericResponse getWindowHandle(string id)
         {
