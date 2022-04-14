@@ -46,7 +46,7 @@ namespace Control.Tests
 
         protected override string GetExpectedPopulateSourceString()
         {
-            return @"<?xml version=""1.0"" encoding=""utf-8""?><GameObject name=""GO1"" x=""153.2866"" y=""263.5836"" width=""44.42683"" height=""46.50926"" />";
+            return @"<?xml version=""1.0"" encoding=""utf-8""?><GameObject name=""GO1"" x=""318.7417"" y=""466.007"" width=""78.51666"" height=""82.22684"" />";
         }
 
         protected override bool GetClickExpected()
