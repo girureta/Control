@@ -1,8 +1,8 @@
 {
   "name": "com.girureta.control",
   "displayName": "Control",
-  "description": "Driver for testing applications",
-  "version": "0.0.1",
+  "description": "Automation driver",
+  "version": "0.0.2",
   "unity": "2021.2",
   "unityRelease": "1f1",
   "dependencies": {
