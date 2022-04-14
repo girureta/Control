@@ -80,7 +80,7 @@ namespace Control.Tests
 
         protected override string GetReceivedKeys()
         {
-            return root.receivedKeys;
+            return root.valueChanged;
         }
 
         protected override bool GetWasCleared()

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Xml;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Control
@@ -46,23 +45,37 @@ namespace Control
 
         public override void SendKeys(string value)
         {
-            if (sourceObject.focusController.focusedElement != sourceObject)
-                sourceObject.Focus();
-
-            foreach (var key in value)
-            {
-                using (var e = KeyDownEvent.GetPooled(key, KeyCode.None, EventModifiers.None))
-                {
-                    sourceObject.SendEvent(e);
-                }
-            }
+            SetValueOrText(value);
+            sourceObject.MarkDirtyRepaint();
         }
 
         public override void Clear()
         {
-            sourceObject.GetType().GetProperty("value")?.SetValue(sourceObject, "");
-            sourceObject.GetType().GetProperty("text")?.SetValue(sourceObject, "");
+            SetValueOrText("");
             sourceObject.MarkDirtyRepaint();
+        }
+
+        protected void SetValueOrText(string value)
+        {
+            if (SetValue(value))
+                return;
+            SetText(value);
+        }
+
+        protected bool SetValue(string value)
+        {
+            var property = sourceObject.GetType().GetProperty("value");
+            property?.SetValue(sourceObject, value);
+
+            return property != null;
+        }
+
+        protected bool SetText(string text)
+        {
+            var property = sourceObject.GetType().GetProperty("text");
+            property?.SetValue(sourceObject, text);
+
+            return property != null;
         }
 
         public override string GetText()
