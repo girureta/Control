@@ -8,6 +8,7 @@
   - [Automated run](#automated-run)
   - [Android](#android)
 - [Customizing / Extending.](#customizing--extending)
+- [Samples](#samples)
 - [Dependencies:](#dependencies)
 - [Future experiments](#future-experiments)
 
@@ -29,11 +30,11 @@ Currently some parts of **Scene/GameObject/Component** and **UIToolkit**  are ex
 
 | Feature | Description  | Windows | Android | 
 |---|---|---|---|
-| GetSource | Returns the current state of the application in XML| :heavy_check_mark: | :question: |
-| Click | Click on an element| :heavy_check_mark: | :question: |
-| SendKeys | Send keys to an element| :heavy_check_mark: | :question: |
-| Clear | Clear the text of an element| :heavy_check_mark: | :question: |
-| TakeScreenshot | Take a screenshot of the whole application | :heavy_check_mark: | :question: |
+| GetSource | Returns the current state of the application in XML| :heavy_check_mark: | :heavy_check_mark: |
+| Click | Click on an element| :heavy_check_mark: | :heavy_check_mark: |
+| SendKeys | Send keys to an element| :heavy_check_mark: | :heavy_check_mark: |
+| Clear | Clear the text of an element| :heavy_check_mark: | :heavy_check_mark: |
+| TakeScreenshot | Take a screenshot of the whole application | :heavy_check_mark: | :heavy_check_mark: |
 
 
 # Usage
@@ -83,6 +84,10 @@ Examples:
 - [GameObject Element](package/Runtime/Elements/General/GameObjectElement.cs)
 
 - [Transform Element](package/Runtime/Elements/General/TransformElement.cs)
+
+# Samples
+
+- [Javascript and wdio](projects/SampleWdio/README.md)
 
 # Dependencies:
 
