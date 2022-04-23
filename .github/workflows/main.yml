@@ -1,11 +1,11 @@
-name: Actions 😎
+name: Test package 😎
 
 on: [push, pull_request]
 
 jobs:
-  build:
-    name: Build my project ✨
-    runs-on: ubuntu-latest
+  test:
+    name: Test using DevProject ✨
+    runs-on: ubuntu-18.4
     steps:
       # Checkout
       - name: Checkout repository
@@ -24,9 +24,8 @@ jobs:
       # Test
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
-        with:
-          projectPath: 'projects/DevProject'
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
+          projectPath: 'projects/DevProject'

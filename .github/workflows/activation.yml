@@ -3,7 +3,7 @@ on: [push]
 jobs:
   activation:
     name: Request manual activation file 🔑
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.4
     steps:
       # Request manual activation file
       - name: Request manual activation file
