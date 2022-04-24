@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Control.Tests
 {
-    
+
     public class GameObjectElementTests : ElementTests<GameObjectElement, GameObject>
     {
         GameObject go1;
@@ -46,7 +46,7 @@ namespace Control.Tests
 
         protected override string GetExpectedPopulateSourceString()
         {
-            return @"<?xml version=""1.0"" encoding=""utf-8""?><GameObject name=""GO1"" x=""318.7417"" y=""466.007"" width=""78.51666"" height=""82.22684"" />";
+            return @"<?xml version=""1.0"" encoding=""utf-8""?><GameObject name=""GO1"" x=""485.443"" y=""291.728"" width=""49.11401"" height=""51.47533"" />";
         }
 
         protected override bool GetClickExpected()
