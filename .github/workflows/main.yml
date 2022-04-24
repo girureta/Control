@@ -1,12 +1,10 @@
 name: Unity Actions
 
-on:
-  pull_request: {}
-  push: { branches: [main, master, develop] }
+on: [push, pull_request]
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  PROJECT_PATH: .
+  PROJECT_PATH: projects/DevProject
 
 jobs:
   checklicense:
@@ -30,7 +28,7 @@ jobs:
       - name: Request manual activation file
         id: getManualLicenseFile
         # https://github.com/game-ci/unity-request-activation-file/releases/
-        uses: game-ci/unity-request-activation-file@v2.0-alpha-1
+        uses: game-ci/unity-request-activation-file@v2.0.0
       # Upload artifact (Unity_v20XX.X.XXXX.alf)
       - name: Expose as artifact
         uses: actions/upload-artifact@v1
@@ -55,10 +53,11 @@ jobs:
             Library-test-project-
             Library-
       # https://github.com/game-ci/unity-test-runner/releases/
-      - uses: game-ci/unity-test-runner@v2.0-2
+      - uses: game-ci/unity-test-runner@v2.0.2
         id: testRunner
         with:
-          projectPath: 'projects/DevProject'
+          projectPath: ${{ env.PROJECT_PATH }}
+          projectPath: 
           testMode: all
           customParameters: '-nographics'
       - uses: actions/upload-artifact@v2
