@@ -29,3 +29,4 @@ jobs:
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           projectPath: 'projects/DevProject'
+          targetPlatform: Android
