@@ -72,8 +72,10 @@ namespace Control
                 max = Vector2.Max(max, v);
             }
             var boxHeight = max.y - min.y;
-            //return new Rect(min.x, Camera.main.pixelHeight - min.y - boxHeight, max.x - min.x, boxHeight);
-            return new Rect(min.x, Camera.main.pixelHeight - min.y - boxHeight, max.x - min.x, boxHeight);
+
+            var res = new Rect(min.x, Camera.main.pixelHeight - min.y - boxHeight, max.x - min.x, boxHeight);
+            res = new Rect(Mathf.RoundToInt(res.x), Mathf.RoundToInt(res.y), Mathf.RoundToInt(res.width), Mathf.RoundToInt(res.height));
+            return res;
         }
     }
 

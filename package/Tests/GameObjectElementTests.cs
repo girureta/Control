@@ -20,6 +20,8 @@ namespace Control.Tests
             go2.transform.SetParent(go1.transform);
             go3.transform.SetParent(go1.transform);
             base.SetUp();
+
+            Camera.main.pixelRect = new Rect(0, 0, 256, 256);
         }
 
         protected override void SetUpExtraWebElements()
@@ -46,7 +48,7 @@ namespace Control.Tests
 
         protected override string GetExpectedPopulateSourceString()
         {
-            return @"<?xml version=""1.0"" encoding=""utf-8""?><GameObject name=""GO1"" x=""485.443"" y=""291.728"" width=""49.11401"" height=""51.47533"" />";
+            return @"<?xml version=""1.0"" encoding=""utf-8""?><GameObject name=""GO1"" x=""116"" y=""139"" width=""23"" height=""24"" />";
         }
 
         protected override bool GetClickExpected()
