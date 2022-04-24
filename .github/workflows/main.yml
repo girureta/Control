@@ -57,7 +57,6 @@ jobs:
         id: testRunner
         with:
           projectPath: ${{ env.PROJECT_PATH }}
-          projectPath: 
           testMode: all
           customParameters: '-nographics'
       - uses: actions/upload-artifact@v2
