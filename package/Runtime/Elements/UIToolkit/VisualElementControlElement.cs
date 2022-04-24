@@ -27,7 +27,10 @@ namespace Control
         public override void PopulateSource(XmlElement xmlElement)
         {
             AddNameAttribute(xmlElement, sourceObject.name);
-            AddRectAttribute(xmlElement, sourceObject.worldBound);
+
+            var rect = sourceObject.worldBound;
+            
+            AddRectAttribute(xmlElement, rect);
         }
 
         protected override object[] GetChildrenObjects()

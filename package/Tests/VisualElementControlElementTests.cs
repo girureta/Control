@@ -50,7 +50,7 @@ namespace Control.Tests
 
         protected override string GetExpectedPopulateSourceString()
         {
-            return @"<?xml version=""1.0"" encoding=""utf-8""?><TestVisualElement name=""Root"" x=""0"" y=""0"" width=""320"" height=""36.8"" />";
+            return @"<?xml version=""1.0"" encoding=""utf-8""?><TestVisualElement name=""Root"" x=""0"" y=""0"" width=""1920"" height=""36.8"" />";
         }
 
         protected override string GetExpectedTag()
