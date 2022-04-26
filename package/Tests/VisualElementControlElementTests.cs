@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using System.Collections;
+using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 
 namespace Control.Tests
@@ -63,9 +65,10 @@ namespace Control.Tests
             return root;
         }
 
-        protected override bool GetClickExpected()
+        [UnityTest]
+        public override IEnumerator Click_WasClicked()
         {
-            return true;
+            return base.Click_WasClicked();
         }
 
         protected override bool GetWasiItClicked()
@@ -73,9 +76,10 @@ namespace Control.Tests
             return root.wasClicked;
         }
 
-        protected override bool GetSendKeysExpected()
+        [UnityTest]
+        public override IEnumerator SendKeys_KeysReceived()
         {
-            return true;
+            return base.SendKeys_KeysReceived();
         }
 
         protected override string GetReceivedKeys()
@@ -88,9 +92,10 @@ namespace Control.Tests
             return string.IsNullOrEmpty(root.valueChanged) && string.IsNullOrEmpty(root.text);
         }
 
-        protected override bool GetClearExpected()
+        [UnityTest]
+        public override IEnumerator Clear_WasCleared()
         {
-            return true;
+            return base.Clear_WasCleared();
         }
 
         public class TestVisualElement : Label
