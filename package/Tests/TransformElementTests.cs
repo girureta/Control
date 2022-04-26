@@ -52,17 +52,7 @@ namespace Control.Tests
             return @"<?xml version=""1.0"" encoding=""utf-8""?><Transform localPosition=""{&quot;x&quot;:0.0,&quot;y&quot;:0.0,&quot;z&quot;:0.0}"" localRotation=""{&quot;x&quot;:0.0,&quot;y&quot;:0.0,&quot;z&quot;:0.0}"" localScale=""{&quot;x&quot;:1.0,&quot;y&quot;:1.0,&quot;z&quot;:1.0}"" />";
         }
 
-        protected override bool GetClickExpected()
-        {
-            return false;
-        }
-
         protected override bool GetWasiItClicked()
-        {
-            return false;
-        }
-
-        protected override bool GetSendKeysExpected()
         {
             return false;
         }
@@ -73,11 +63,6 @@ namespace Control.Tests
         }
 
         protected override bool GetWasCleared()
-        {
-            return false;
-        }
-
-        protected override bool GetClearExpected()
         {
             return false;
         }

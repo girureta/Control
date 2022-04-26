@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using System.Collections;
+using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 
 namespace Control.Tests
@@ -50,7 +52,7 @@ namespace Control.Tests
 
         protected override string GetExpectedPopulateSourceString()
         {
-            return @"<?xml version=""1.0"" encoding=""utf-8""?><TestVisualElement name=""Root"" x=""0"" y=""0"" width=""320"" height=""36.8"" />";
+            return @"<?xml version=""1.0"" encoding=""utf-8""?><TestVisualElement name=""Root"" x=""0"" y=""0"" width=""1920"" height=""36"" />";
         }
 
         protected override string GetExpectedTag()
@@ -63,9 +65,10 @@ namespace Control.Tests
             return root;
         }
 
-        protected override bool GetClickExpected()
+        [UnityTest]
+        public override IEnumerator Click_WasClicked()
         {
-            return true;
+            return base.Click_WasClicked();
         }
 
         protected override bool GetWasiItClicked()
@@ -73,9 +76,10 @@ namespace Control.Tests
             return root.wasClicked;
         }
 
-        protected override bool GetSendKeysExpected()
+        [UnityTest]
+        public override IEnumerator SendKeys_KeysReceived()
         {
-            return true;
+            return base.SendKeys_KeysReceived();
         }
 
         protected override string GetReceivedKeys()
@@ -88,9 +92,10 @@ namespace Control.Tests
             return string.IsNullOrEmpty(root.valueChanged) && string.IsNullOrEmpty(root.text);
         }
 
-        protected override bool GetClearExpected()
+        [UnityTest]
+        public override IEnumerator Clear_WasCleared()
         {
-            return true;
+            return base.Clear_WasCleared();
         }
 
         public class TestVisualElement : Label

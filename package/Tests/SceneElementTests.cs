@@ -36,17 +36,7 @@ namespace Control.Tests
             return @"<?xml version=""1.0"" encoding=""utf-8""?><Scene name="""" />";
         }
 
-        protected override bool GetClickExpected()
-        {
-            return false;
-        }
-
         protected override bool GetWasiItClicked()
-        {
-            return false;
-        }
-
-        protected override bool GetSendKeysExpected()
         {
             return false;
         }
@@ -57,11 +47,6 @@ namespace Control.Tests
         }
 
         protected override bool GetWasCleared()
-        {
-            return false;
-        }
-
-        protected override bool GetClearExpected()
         {
             return false;
         }

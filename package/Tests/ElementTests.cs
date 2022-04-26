@@ -36,34 +36,16 @@ namespace Control.Tests
         protected abstract IElement[] GetExpectedChildren();
 
         /// <summary>
-        /// Checks if sourceObject is expected to handle Click
-        /// </summary>
-        /// <returns></returns>
-        protected abstract bool GetClickExpected();
-
-        /// <summary>
         /// Checks if it was Clicked
         /// </summary>
         /// <returns></returns>
         protected abstract bool GetWasiItClicked();
 
         /// <summary>
-        /// Checks if sourceObject is expected to handle SendKeys
-        /// </summary>
-        /// <returns></returns>
-        protected abstract bool GetSendKeysExpected();
-
-        /// <summary>
         /// Checks the keys that were sent to the sourceObject
         /// </summary>
         /// <returns></returns>
         protected abstract string GetReceivedKeys();
-
-        /// <summary>
-        /// Checks if sourceObject is expected to handle Clear
-        /// </summary>
-        /// <returns></returns>
-        protected abstract bool GetClearExpected();
 
         /// <summary>
         /// Checks if sourceObject was cleared
@@ -112,10 +94,8 @@ namespace Control.Tests
         /// Checks the sourceObject was clicked
         /// </summary>
         /// <returns></returns>
-        [UnityTest]
-        public IEnumerator Click_WasClicked()
+        public virtual IEnumerator Click_WasClicked()
         {
-            Assume.That(GetClickExpected(), Is.True);
             element.Click();
             yield return null;
             Assert.That(GetWasiItClicked(), Is.True);
@@ -125,11 +105,9 @@ namespace Control.Tests
         /// Checks if the keys were received by the sourceObject
         /// </summary>
         /// <returns></returns>
-        [UnityTest]
-        public IEnumerator SendKeys_KeysReceived()
+        public virtual IEnumerator SendKeys_KeysReceived()
         {
             string keysToSend = "abc";
-            Assume.That(GetSendKeysExpected(), Is.True);
             element.SendKeys(keysToSend);
             yield return null;
             Assert.That(GetReceivedKeys(), Is.EqualTo(keysToSend));
@@ -139,10 +117,8 @@ namespace Control.Tests
         /// Checks that the sourceObject was cleared
         /// </summary>
         /// <returns></returns>
-        [UnityTest]
-        public IEnumerator Clear_WasCleared()
+        public virtual IEnumerator Clear_WasCleared()
         {
-            Assume.That(GetClearExpected(), Is.True);
             element.Clear();
             yield return null;
             Assert.That(GetWasCleared(), Is.True);
