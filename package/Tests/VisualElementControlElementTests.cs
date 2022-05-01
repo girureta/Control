@@ -84,7 +84,7 @@ namespace Control.Tests
 
         protected override string GetReceivedKeys()
         {
-            return root.valueChanged;
+            return root.receivedKeys;
         }
 
         protected override bool GetWasCleared()

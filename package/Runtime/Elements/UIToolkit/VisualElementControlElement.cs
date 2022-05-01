@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Xml;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Control
@@ -45,7 +46,27 @@ namespace Control
 
         public override void SendKeys(string value)
         {
-            SetValueOrText(value);
+            if (sourceObject.focusController.focusedElement != sourceObject)
+                sourceObject.Focus();
+
+            foreach (var key in value)
+            {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+                using (var e = KeyDownEvent.GetPooled(key, KeyCode.None, EventModifiers.None))
+                {
+                    sourceObject.SendEvent(e);
+                }
+#else
+                string currentValue = GetText();
+                if (key == (char)KeyCode.Backspace)
+                {
+                    currentValue = currentValue.Remove(currentValue.Length - 1);
+                }
+
+                SetText(currentValue + key);
+#endif
+            }
+
             sourceObject.MarkDirtyRepaint();
         }
 
