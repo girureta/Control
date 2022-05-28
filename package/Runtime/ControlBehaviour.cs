@@ -22,6 +22,7 @@ namespace Control
         private string url = "http://127.0.0.1:4723/";
         [SerializeField]
         private string path = "/wd/hub";
+        [SerializeField]
         private bool logServerChanges = false;
 
         void OnEnable()

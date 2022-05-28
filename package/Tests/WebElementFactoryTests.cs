@@ -5,14 +5,60 @@ using UnityEngine;
 
 namespace Control.Tests
 {
-    public class WebDriverTests
+    public class DriverTests
     {
+        Driver driver;
+        Mock<IElementFactory> mockFactory;
+        Mock<IElement> root;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockFactory = new Mock<IElementFactory>();
+            root = new Mock<IElement>();
+            root.Setup(x => x.GetId()).Returns("rootId");
+            root.Setup(x => x.GetTag()).Returns("rootTag");
+            driver = new Driver(mockFactory.Object);
+        }
+
+        [Test]
+        public void FindWebElementById_ReturnsExpectedElement()
+        {
+            //Arrange
+            var child = new Mock<IElement>();
+            child.Setup(x => x.GetId()).Returns("childId");
+            root.Setup(x => x.GetChildren(mockFactory.Object)).Returns(new IElement[] { child.Object });
+            mockFactory.Setup(X => X.GetRootWebElement()).Returns(root.Object);
+
+            //Act
+            var element = driver.FindWebElementById("childId");
+
+            //Assert
+            Assert.That(element, Is.EqualTo(child.Object));
+        }
+
+        [Test]
+        public void FindElementIdByXPath_ReturnsExpectedElement()
+        {
+            //Arrange
+            var mockChild = new Mock<IElement>();
+            mockChild.Setup(x => x.GetId()).Returns("childId");
+            mockChild.Setup(x => x.GetTag()).Returns("childTag");
+            root.Setup(x => x.GetChildren(mockFactory.Object)).Returns(new IElement[] { mockChild.Object });
+            mockFactory.Setup(X => X.GetRootWebElement()).Returns(root.Object);
+
+            //Act
+            var element = driver.FindElementIdByXPath("rootTag/childTag");
+
+            //Assert
+            Assert.That(element, Is.EqualTo(mockChild.Object.GetId()));
+        }
+
         [Test]
         public void GetPageSource_ReturnsExpectedXmlStructure()
         {
             //Arrange
             string expectedXmlString = @"<?xml version=""1.0"" encoding=""utf-8""?><MockTagA id=""""><MockTagA1 id=""""><MockTagA id="""" /></MockTagA1><MockTagA2 id="""" /></MockTagA>";
-            var mockFactory = new Mock<IElementFactory>();
 
             var mockRootWebElementA22 = new Mock<IElement>();
             mockRootWebElementA22.Setup(x => x.GetTag()).Returns("MockTagA");
@@ -38,11 +84,10 @@ namespace Control.Tests
             });
 
             mockFactory.Setup(x => x.GetRootWebElement()).Returns(mockRootWebElementA.Object);
-            var webDriver = new Driver(mockFactory.Object);
 
             //Act
             XmlDocument doc = new XmlDocument();
-            var rootElement = webDriver.GetPageSource(doc);
+            var rootElement = driver.GetPageSource(doc);
             var xmlString = TestUtils.GetXmlString(rootElement);
 
             Debug.Log("Actual XML:" + xmlString);
