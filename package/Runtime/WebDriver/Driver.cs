@@ -43,7 +43,8 @@ namespace Control
             {
                 var webElement = queueWebElements.Dequeue();
 
-                var xmlElement = doc.CreateElement(webElement.GetTag());
+                var tag = webElement.GetTag();
+                var xmlElement = doc.CreateElement(tag);
                 xmlElement.SetAttribute("id", webElement.GetId());
                 webElement.PopulateSource(xmlElement);
 
