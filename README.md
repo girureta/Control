@@ -4,6 +4,7 @@
 - [Features](#features)
 - [Usage](#usage)
   - [Setup](#setup)
+  - [Load prebuild assembly](#load-prebuild-assembly)
   - [Manual run](#manual-run)
   - [Automated run](#automated-run)
   - [Android](#android)
@@ -50,6 +51,15 @@ Use this URL to add the package using the Unity Package Manager:
 * Run the application!. 
  
 > The driver is part of the application so we must run it before using the driver.
+
+## Load prebuild assembly
+Control can be loaded on a project without having to include the package or the source code in the Unity project.
+
+* For this we need to load some assemblies using a script similar to the [example](projects/LoadControlAssembly.cs) 
+* And copy the following assemblies into target application's executable folder: 
+  * Control.Runtime.dll
+  * EmbedIO.dll
+  * Swan.Lite.dll 
 
 ## Manual run
 
