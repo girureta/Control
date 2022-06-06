@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Xml;
-using UnityEngine;
+﻿using System.Xml;
 using UnityEngine.SceneManagement;
 
 namespace Control
@@ -27,11 +25,10 @@ namespace Control
             AddNameAttribute(xmlElement, sourceObject.name);
         }
 
-        protected override System.Object[] GetChildrenObjects()
+        protected override object[] GetChildrenObjects()
         {
-            var gos = GameObject.FindObjectsOfType<GameObject>().Where(x => x.scene == sourceObject).Select(x => x.gameObject).ToArray();
+            var gos = sourceObject.GetRootGameObjects();
             return gos;
         }
     }
-
 }

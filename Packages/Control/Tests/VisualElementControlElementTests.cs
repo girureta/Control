@@ -98,6 +98,32 @@ namespace Control.Tests
             return base.Clear_WasCleared();
         }
 
+        [Test]
+        public void DifferentVisualElements_DifferentIds()
+        {
+            VisualElement v1 = new VisualElement();
+            VisualElement v2 = new VisualElement();
+
+            var v1C = new VisualElementControlElement(v1);
+            var v2C = new VisualElementControlElement(v2);
+
+            Assert.That(v1C.GetId(), Is.Not.EqualTo(v2C.GetId()));
+        }
+
+        [Test]
+        public void DifferentLabel_SameTest_DifferentIds()
+        {
+            Label v1 = new Label();
+            v1.text = "Label";
+            Label v2 = new Label();
+            v2.text = "Label";
+
+            var v1C = new VisualElementControlElement(v1);
+            var v2C = new VisualElementControlElement(v2);
+
+            Assert.That(v1C.GetId(), Is.Not.EqualTo(v2C.GetId()));
+        }
+
         public class TestVisualElement : Label
         {
             public bool wasClicked = false;

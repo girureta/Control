@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,14 +9,9 @@ namespace Control
     {
         public VisualElementControlElement(VisualElement visualElement) : base(visualElement) { }
 
-        private static Guid VisualElementToGuid(VisualElement ve)
-        {
-            return new Guid(ve.name.GetHashCode(), 2, 3, new byte[] { 0, 1, 2, 3, 4, 5, 6, 7 });
-        }
-
         public override string GetId()
         {
-            return VisualElementToGuid(sourceObject).ToString();
+            return sourceObject.GetHashCode().ToString();
         }
 
         public override string GetTag()
