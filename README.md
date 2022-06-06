@@ -41,7 +41,7 @@ Currently some parts of **Scene/GameObject/Component** and **UIToolkit**  are ex
 # Usage
 
 Use this URL to add the package using the Unity Package Manager:
-> https://github.com/girureta/Control.git?path=/package
+> https://github.com/girureta/Control.git?path=/packages/Control
 
 ## Setup
 * Place **ControlBehaviour** in a Scene that is loaded and shipped with your application. 
@@ -106,4 +106,3 @@ Examples:
 # Future experiments
 
 * Use DOM manipulation in WebGL to expose information and react to commands.
-* Runtime loading/injection of Control's dlls. To allow developers to created builds without **Control** and just load/inject it when running tests.
