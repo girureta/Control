@@ -81,7 +81,7 @@ namespace Control
             document.AppendChild(pageSourceElement);
 
             var node = document.SelectSingleNode(xpath);
-            var idStr = node.Attributes.GetNamedItem("id").Value;
+            var idStr = node?.Attributes.GetNamedItem("id").Value;
             return idStr;
         }
 

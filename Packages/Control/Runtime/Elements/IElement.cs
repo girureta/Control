@@ -31,7 +31,8 @@ namespace Control
         {
             var children = GetChildrenObjects();
             var childrenWebElements = children.Where(x => x != null).Select(x => factory.CreateWebElement(x)).Where(x => x != null);
-            return childrenWebElements.ToArray();
+            var result = childrenWebElements.ToArray();
+            return result;
         }
 
         public abstract void PopulateSource(XmlElement xmlElement);

@@ -3,6 +3,7 @@ using EmbedIO.Routing;
 using EmbedIO.WebApi;
 using System;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -120,6 +121,10 @@ namespace Control.WebDriver
                     break;
             }
 
+            if (element == null)
+            {
+                throw new HttpException(HttpStatusCode.NotFound);
+            }
 
             return new WebElementResponse
             {
