@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "com.girureta.control": {
-      "version": "file:../../../package",
+      "version": "file:Control",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "2.0.0",
         "nuget.moq": "1.0.0"
