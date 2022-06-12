@@ -1,3 +1,5 @@
+[![test](https://github.com/girureta/Control/actions/workflows/main.yml/badge.svg)](https://github.com/girureta/Control/actions/workflows/main.yml)
+
 # Control
 - [Control](#control)
 - [Overview](#overview)
