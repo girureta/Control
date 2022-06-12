@@ -14,6 +14,7 @@ namespace Control
         string GetText();
         void Clear();
         void SendKeys(string value);
+        string GetAttribute(string name);
     }
 
     public abstract class Element<T> : IElement
@@ -93,6 +94,14 @@ namespace Control
         public override string ToString()
         {
             return sourceObject.ToString();
+        }
+
+        public virtual string GetAttribute(string name)
+        {
+            if (name == "text")
+                return GetText();
+
+            return null;
         }
     }
 }
