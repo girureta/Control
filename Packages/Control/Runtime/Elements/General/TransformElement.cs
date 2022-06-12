@@ -35,6 +35,26 @@ namespace Control
         {
             return sourceObject.Cast<Transform>().Select(x => x.gameObject).ToArray();
         }
+
+        public override string GetAttribute(string name)
+        {
+            if (name == "localPosition")
+            {
+                return JsonUtility.ToJson(sourceObject.localPosition);
+            }
+
+            if (name == "localRotation")
+            {
+                return JsonUtility.ToJson(sourceObject.localRotation.eulerAngles);
+            }
+
+            if (name == "localScale")
+            {
+                return JsonUtility.ToJson(sourceObject.localScale);
+            }
+
+            return base.GetAttribute(name);
+        }
     }
 
 }

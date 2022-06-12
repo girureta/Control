@@ -14,6 +14,9 @@ namespace Control.Tests
         {
             go1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             go1.name = "GO1";
+            go1.transform.position = new Vector3(1.0f, 2.0f, 3.0f);
+            go1.transform.rotation = Quaternion.Euler(90.0f, -45.0f, 0.0f);
+            go1.transform.localScale = new Vector3(-1.0f, -2.0f, -3.0f);
 
             go2 = new GameObject("GO2");
             go2.transform.SetParent(go1.transform);
@@ -65,6 +68,45 @@ namespace Control.Tests
         protected override bool GetWasCleared()
         {
             return false;
+        }
+
+        [Test]
+        public void GetAttributeLocalPosition_ReturnsLocalPosition()
+        {
+            //Arrange
+            string expectedValue = JsonUtility.ToJson(go1.transform.localPosition);
+
+            //Act
+            var value = element.GetAttribute("localPosition");
+
+            //Assert
+            Assert.That(value, Is.EqualTo(expectedValue));
+        }
+
+        [Test]
+        public void GetAttributeLocalRotation_ReturnsLocalRotation()
+        {
+            //Arrange
+            string expectedValue = JsonUtility.ToJson(go1.transform.localRotation.eulerAngles);
+
+            //Act
+            var value = element.GetAttribute("localRotation");
+
+            //Assert
+            Assert.That(value, Is.EqualTo(expectedValue));
+        }
+
+        [Test]
+        public void GetAttributeLocalScale_ReturnsLocalScale()
+        {
+            //Arrange
+            string expectedValue = JsonUtility.ToJson(go1.transform.localScale);
+
+            //Act
+            var value = element.GetAttribute("localScale");
+
+            //Assert
+            Assert.That(value, Is.EqualTo(expectedValue));
         }
     }
 }
