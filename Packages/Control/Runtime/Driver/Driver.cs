@@ -213,5 +213,16 @@ namespace Control
             var enc = Convert.ToBase64String(bytes);
             return enc;
         }
+
+        public string GetAttribute(string elementId, string name)
+        {
+            var element = FindWebElementById(elementId);
+
+            if (element == null)
+                return null;
+
+            var value = element.GetAttribute(name);
+            return value;
+        }
     }
 }

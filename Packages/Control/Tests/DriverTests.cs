@@ -94,5 +94,53 @@ namespace Control.Tests
             //Assert
             Assert.That(xmlString, Is.EqualTo(expectedXmlString));
         }
+
+        [Test]
+        public void GetElement_ElementDoesntExist_ReturnsNull()
+        {
+            //Arrange
+            string elementId = "id123";
+            string propertyName = "propAbc";
+            mockFactory.Setup(X => X.GetRootWebElement()).Returns(root.Object);
+
+            //Act
+            var resposne = driver.GetAttribute(elementId, propertyName);
+
+            //Assert
+            Assert.That(resposne, Is.Null);
+        }
+
+        [Test]
+        public void GetElement_PropertyDoesntExist_ReturnsNull()
+        {
+            //Arrange
+            string elementId = root.Object.GetId();
+            string propertyName = "propAbc";
+            mockFactory.Setup(X => X.GetRootWebElement()).Returns(root.Object);
+
+            //Act
+            var resposne = driver.GetAttribute(elementId, propertyName);
+
+            //Assert
+            Assert.That(resposne, Is.Null);
+        }
+
+        [Test]
+        public void GetElement_PropertyDoesnExists_ReturnsValue()
+        {
+            //Arrange
+            string elementId = root.Object.GetId();
+            string propertyName = "text";
+            string expectedValue = "the value";
+            mockFactory.Setup(X => X.GetRootWebElement()).Returns(root.Object);
+
+            root.Setup(x => x.GetAttribute(propertyName)).Returns(expectedValue);
+
+            //Act
+            var resposne = driver.GetAttribute(elementId, propertyName);
+
+            //Assert
+            Assert.That(resposne, Is.EqualTo(expectedValue));
+        }
     }
 }
