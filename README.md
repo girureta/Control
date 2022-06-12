@@ -36,6 +36,9 @@ Currently some parts of **Scene/GameObject/Component** and **UIToolkit**  are ex
 | SendKeys | Send keys to an element| :heavy_check_mark: | :heavy_check_mark: |
 | Clear | Clear the text of an element| :heavy_check_mark: | :heavy_check_mark: |
 | TakeScreenshot | Take a screenshot of the whole application | :heavy_check_mark: | :heavy_check_mark: |
+| GetAttribute | Returns an element's [attribute]( docs/getelementAttribute.md) | :heavy_check_mark: | :heavy_check_mark: |
+
+
 
 
 # Usage
