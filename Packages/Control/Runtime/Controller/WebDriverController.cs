@@ -100,9 +100,7 @@ namespace Control.WebDriver
         public async Task<WebElementResponse> FindElement(string id)
         {
             var query = await HttpContext.GetRequestDataAsync<ElementQuery>();
-            string queryUsing = query.usingParam;
             string queryValue = query.value;
-            var xpath = query.value;
 
             string element = null;
 
@@ -155,6 +153,20 @@ namespace Control.WebDriver
             };
         }
 
+
+        [Route(HttpVerb.Get, "/session/{id}/element/{elementId}/attribute/{name}")]
+        public GenericResponse GetElementAttribute(string id, string name)
+        {
+            string attribute = helper.GetMainThreadTask(() => uiDriver.GetAttribute(id, name)).GetAwaiter().GetResult();
+
+            if (attribute == null)
+                HttpException.NotFound();
+
+            return new GenericResponse
+            {
+                value = attribute
+            };
+        }
 
         [Route(HttpVerb.Post, "/session/{id}/element/{elementId}/clear")]
         public GenericResponse ClearElement(string id, string elementId)
