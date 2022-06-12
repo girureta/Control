@@ -35,20 +35,26 @@ namespace Control
         {
             if (name == "localPosition")
             {
-                return JsonUtility.ToJson(sourceObject.localPosition);
+                return ToJson(sourceObject.localPosition);
             }
 
             if (name == "localRotation")
             {
-                return JsonUtility.ToJson(sourceObject.localRotation.eulerAngles);
+                return ToJson(sourceObject.localRotation.eulerAngles);
             }
 
             if (name == "localScale")
             {
-                return JsonUtility.ToJson(sourceObject.localScale);
+                return ToJson(sourceObject.localScale);
             }
 
             return base.GetAttribute(name);
+        }
+
+        protected string ToJson(Vector3 v)
+        {
+            string ret = string.Format(@"{{""x"":{0:0.0#},""y"":{1:0.0#},""z"":{2:0.0#}}}", v.x, v.y, v.z);
+            return ret;
         }
     }
 

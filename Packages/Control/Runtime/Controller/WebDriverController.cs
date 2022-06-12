@@ -155,9 +155,9 @@ namespace Control.WebDriver
 
 
         [Route(HttpVerb.Get, "/session/{id}/element/{elementId}/attribute/{name}")]
-        public GenericResponse GetElementAttribute(string id, string name)
+        public GenericResponse GetElementAttribute(string elementId, string name)
         {
-            string attribute = helper.GetMainThreadTask(() => uiDriver.GetAttribute(id, name)).GetAwaiter().GetResult();
+            string attribute = helper.GetMainThreadTask(() => uiDriver.GetAttribute(elementId, name)).GetAwaiter().GetResult();
 
             if (attribute == null)
                 HttpException.NotFound();
