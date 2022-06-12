@@ -24,12 +24,7 @@ namespace Control
             return "Transform";
         }
 
-        public override void PopulateSource(XmlElement xmlElement)
-        {
-            AddVector3Attribute(xmlElement, "localPosition", sourceObject.localPosition);
-            AddVector3Attribute(xmlElement, "localRotation", sourceObject.localRotation.eulerAngles);
-            AddVector3Attribute(xmlElement, "localScale", sourceObject.localScale);
-        }
+        public override void PopulateSource(XmlElement xmlElement) { }
 
         protected override object[] GetChildrenObjects()
         {

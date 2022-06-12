@@ -52,7 +52,7 @@ namespace Control.Tests
 
         protected override string GetExpectedPopulateSourceString()
         {
-            return @"<?xml version=""1.0"" encoding=""utf-8""?><Transform localPosition=""{&quot;x&quot;:0.0,&quot;y&quot;:0.0,&quot;z&quot;:0.0}"" localRotation=""{&quot;x&quot;:0.0,&quot;y&quot;:0.0,&quot;z&quot;:0.0}"" localScale=""{&quot;x&quot;:1.0,&quot;y&quot;:1.0,&quot;z&quot;:1.0}"" />";
+            return @"<?xml version=""1.0"" encoding=""utf-8""?><Transform />";
         }
 
         protected override bool GetWasiItClicked()
