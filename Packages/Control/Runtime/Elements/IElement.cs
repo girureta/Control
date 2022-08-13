@@ -75,6 +75,11 @@ namespace Control
             element.SetAttribute("height", rect.height.ToString());
         }
 
+        protected void AddVisibleAttribute(XmlElement element, bool isVisible)
+        {
+            element.SetAttribute("visible", isVisible ? "true" : "false");
+        }
+
         protected void AddVector3Attribute(XmlElement element, string name, Vector3 vector)
         {
             element.SetAttribute(name, JsonUtility.ToJson(vector));

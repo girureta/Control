@@ -26,11 +26,26 @@ namespace Control
         {
             AddNameAttribute(xmlElement, sourceObject.name);
 
+            var renderer = sourceObject.GetComponent<Renderer>();
+            if (renderer == null)
+                return;
+
+            //Rect
             Rect rect = new Rect();
-            if (GetRect(sourceObject, ref rect))
-            {
-                AddRectAttribute(xmlElement, rect);
-            }
+            GetRect(renderer, ref rect);
+            AddRectAttribute(xmlElement, rect);
+
+            //Visible
+            bool isVisible = GetIsVisible(renderer);
+            AddVisibleAttribute(xmlElement, isVisible);
+        }
+
+        protected bool GetIsVisible(Renderer renderer)
+        {
+            var cam = Camera.main;
+            var planes = GeometryUtility.CalculateFrustumPlanes(cam);
+            bool visible = GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
+            return visible;
         }
 
         protected override System.Object[] GetChildrenObjects()
@@ -39,14 +54,9 @@ namespace Control
             return children;
         }
 
-        protected bool GetRect(GameObject go, ref Rect rect)
+        protected void GetRect(Renderer renderer, ref Rect rect)
         {
-            var renderer = go.GetComponent<Renderer>();
-            if (renderer == null)
-                return false;
-
             rect = GUIRectWithObject(renderer);
-            return true;
         }
 
         public static Rect GUIRectWithObject(Renderer renderer)
