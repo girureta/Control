@@ -22,7 +22,25 @@ namespace Control
         public override void PopulateSource(XmlElement xmlElement)
         {
             AddNameAttribute(xmlElement, sourceObject.name);
-            AddRectAttribute(xmlElement, sourceObject.worldBound);
+            AddRectAttribute(xmlElement, WorldBoundsOnScreen());
+        }
+
+        protected Rect WorldBoundsOnScreen()
+        {
+            //RuntimePanelUtils.ScreenToPanel only works on runtime
+            //Class is not accessible so we check by class name
+            if (sourceObject.panel.GetType().Name != "RuntimePanel")
+                return sourceObject.worldBound;
+
+            var oneOnPanel = RuntimePanelUtils.ScreenToPanel(sourceObject.panel, Vector2.one);
+            Vector2 scale = new Vector2(1.0f / oneOnPanel.x, 1.0f / oneOnPanel.y);
+
+            Rect worldBounds = sourceObject.worldBound;
+            var p = worldBounds.position * scale;
+            var s = worldBounds.size * scale;
+
+            var screenRect = new Rect(p, s);
+            return screenRect;
         }
 
         protected override object[] GetChildrenObjects()

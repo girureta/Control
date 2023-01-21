@@ -2,7 +2,7 @@
   "name": "com.girureta.control",
   "displayName": "Control",
   "description": "Automation driver",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "unity": "2021.2",
   "unityRelease": "1f1",
   "dependencies": {
