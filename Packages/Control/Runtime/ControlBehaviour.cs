@@ -15,24 +15,24 @@ namespace Control
     /// </summary>
     public class ControlBehaviour : MonoBehaviour
     {
-        WebDriverController webDriverController;
-        WebServer server;
+        protected WebDriverController webDriverController;
+        protected WebServer server;
 
         [SerializeField]
-        private string url = "http://127.0.0.1:4723/";
+        protected string url = "http://127.0.0.1:4723/";
         [SerializeField]
-        private string path = "/wd/hub";
+        protected string path = "/wd/hub";
         [SerializeField]
-        private bool logServerChanges = false;
+        protected bool logServerChanges = false;
 
-        void OnEnable()
+        protected void OnEnable()
         {
             Swan.Logging.Logger.RegisterLogger<UnityLogger>();
             CreateWebServer(url);
             server.RunAsync();
         }
 
-        void OnDisable()
+        protected void OnDisable()
         {
             server.Dispose();
             Swan.Logging.Logger.UnregisterLogger<UnityLogger>();
