@@ -77,7 +77,7 @@ namespace Control.Tests
             var value = element.GetAttribute("localPosition");
 
             //Assert
-            Assert.That(value, Is.EqualTo(@"{""x"":1,0,""y"":2,0,""z"":3,0}"));
+            Assert.That(value, Is.EqualTo(@"{""x"":1.0,""y"":2.0,""z"":3.0}"));
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace Control.Tests
             var value = element.GetAttribute("localRotation");
 
             //Assert
-            Assert.That(value, Is.EqualTo(@"{""x"":90,0,""y"":315,0,""z"":0,0}"));
+            Assert.That(value, Is.EqualTo(@"{""x"":90.0,""y"":315.0,""z"":0.0}"));
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace Control.Tests
             var value = element.GetAttribute("localScale");
 
             //Assert
-            Assert.That(value, Is.EqualTo(@"{""x"":-1,0,""y"":-2,0,""z"":-3,0}"));
+            Assert.That(value, Is.EqualTo(@"{""x"":-1.0,""y"":-2.0,""z"":-3.0}"));
         }
     }
 }

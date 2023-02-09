@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using System.Xml;
 using UnityEngine;
 
@@ -53,7 +54,7 @@ namespace Control
 
         protected string ToJson(Vector3 v)
         {
-            string ret = string.Format(@"{{""x"":{0:0.0#},""y"":{1:0.0#},""z"":{2:0.0#}}}", v.x, v.y, v.z);
+            string ret = string.Format(CultureInfo.InvariantCulture, @"{{""x"":{0:0.0#},""y"":{1:0.0#},""z"":{2:0.0#}}}", v.x, v.y, v.z);
             return ret;
         }
     }
