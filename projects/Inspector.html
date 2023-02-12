@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>Hello World<h1>
+            <div>
+                <img id="screenshot" style="display: block;min-height: 100px;min-width: 100px;" />
+            </div>
+</body>
+
+<script>
+
+    const url = "http://127.0.0.1:4723/wd/hub";
+
+
+    doAll(url);
+
+    async function doAll(baseUrl) {
+        const sessionId = await getSession(baseUrl);
+
+
+        const screenBase64 = await getScreenshot(baseUrl, sessionId);
+        var screenshotElement = document.getElementById('screenshot');
+
+        var img = document.createElement("img");
+
+        img.scr = screenBase64;
+
+        /*img.onload = function () {
+            context.drawImage(img, 0, 0);
+        }*/
+
+        document.body.appendChild(img);
+
+        //console.log("ok", screenshotElement, screenBase64);
+        console.log(screenBase64, screenshotElement);
+    }
+
+    async function getSession(baseUrl) {
+        const url = `${baseUrl}/session`;
+
+        const body = {
+            desiredCapabilities: {
+                ["appium:newCommandTimeout"]: 3600,
+                ["appium:connectHardwareKeyboard"]: true
+            }
+        }
+
+        const r = await fetch(url, {
+            method: 'POST', body: JSON.stringify(body)
+        });
+
+        const data = await r.json();
+        return data.sessionId;
+    }
+
+    async function getScreenshot(baseUrl, sessionId) {
+        const url = `${baseUrl}/session/${sessionId}/screenshot`;
+
+        const body = {
+            desiredCapabilities: {
+                ["appium:newCommandTimeout"]: 3600,
+                ["appium:connectHardwareKeyboard"]: true
+            }
+        }
+
+        const r = await fetch(url, {
+            method: 'GET'
+        });
+
+        const data = await r.json();
+
+
+
+        const blob = `data:image/png;base64,${(data.value)}`;
+
+
+
+
+        //const blob = new Blob([data.value], { type: "image/jpeg" });
+        //let fileUploaded = new FileReader();
+        //fileUploaded.readAsDataURL(blob);
+        //const imageObjectURL = URL.createObjectURL(blob);
+        //console.log(blob, imageObjectURL);
+        return blob;
+    }
+</script>
+
+
+</html>

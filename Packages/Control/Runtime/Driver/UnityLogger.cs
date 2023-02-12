@@ -12,6 +12,10 @@ namespace Control.WebDriver
         public void Log(LogMessageReceivedEventArgs logEvent)
         {
             Debug.Log(logEvent.Message);
+            if (logEvent.Exception != null)
+            {
+                Debug.LogException(logEvent.Exception);
+            }
         }
 
         public void Dispose() { }
