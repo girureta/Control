@@ -2,42 +2,74 @@
 <html>
 
 <head>
-
+    <style>
+        * {
+            background: none;
+            margin: 0px;
+            border-color: magenta;
+            border-width: 1px;
+            border-style: dashed;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Hello World<h1>
-            <div>
-                <img id="screenshot" style="display: block;min-height: 100px;min-width: 100px;" />
-            </div>
+    <div id="placeholder">
+        <img id="screenshot" style="position:fixed" />
+    </div>
 </body>
 
-<script>
 
+<script type="text/javascript">
+
+    //Control url
     const url = "http://127.0.0.1:4723/wd/hub";
-
 
     doAll(url);
 
     async function doAll(baseUrl) {
+
         const sessionId = await getSession(baseUrl);
-
-
         const screenBase64 = await getScreenshot(baseUrl, sessionId);
-        var screenshotElement = document.getElementById('screenshot');
 
-        var img = document.createElement("img");
+        var placeholder = document.getElementById("placeholder");
+        const image = displayBase64Image(placeholder, screenBase64);
 
-        img.scr = screenBase64;
+        const source = await getSource(baseUrl, sessionId);
 
-        /*img.onload = function () {
-            context.drawImage(img, 0, 0);
-        }*/
+        useSource(source, image, placeholder);
+    }
 
-        document.body.appendChild(img);
+    function useSource(source, image, placeholder) {
+        //Parse source as html
+        parser = new DOMParser();
+        doc = parser.parseFromString(source, "text/html");
 
-        //console.log("ok", screenshotElement, screenBase64);
-        console.log(screenBase64, screenshotElement);
+        //Get the "scenes"
+        var root = doc.getElementsByTagName("scenes")[0];
+
+        //Adjust the style of the root node so the source aligns with the screenshot
+        root.style =
+            `
+            position:sticky;
+            left:${image.x};
+            top:${image.y};
+            width:${image.width};
+            height:${image.height}`;
+
+        //Same for all children
+        var all = root.getElementsByTagName("*");
+        for (var i = 0, max = all.length; i < max; i++) {
+            var element = all[i];
+            element.style = `position: fixed;
+            display:inline-block;
+            width: ${element.getAttribute("width")};
+            height: ${element.getAttribute("height")};
+            left: ${element.getAttribute("x")};
+            top: ${element.getAttribute("y")}`;
+        }
+
+        placeholder.appendChild(root);
     }
 
     async function getSession(baseUrl) {
@@ -61,34 +93,37 @@
     async function getScreenshot(baseUrl, sessionId) {
         const url = `${baseUrl}/session/${sessionId}/screenshot`;
 
-        const body = {
-            desiredCapabilities: {
-                ["appium:newCommandTimeout"]: 3600,
-                ["appium:connectHardwareKeyboard"]: true
-            }
-        }
-
         const r = await fetch(url, {
             method: 'GET'
         });
 
         const data = await r.json();
 
-
-
         const blob = `data:image/png;base64,${(data.value)}`;
-
-
-
-
-        //const blob = new Blob([data.value], { type: "image/jpeg" });
-        //let fileUploaded = new FileReader();
-        //fileUploaded.readAsDataURL(blob);
-        //const imageObjectURL = URL.createObjectURL(blob);
-        //console.log(blob, imageObjectURL);
         return blob;
     }
-</script>
 
+    async function getSource(baseUrl, sessionId) {
+        const url = `${baseUrl}/session/${sessionId}/source`;
+
+        const r = await fetch(url, {
+            method: 'GET'
+        });
+
+        const data = await r.json();
+        return data.value;
+    }
+
+    function displayBase64Image(placeholder, base64Image) {
+        var image = document.createElement('img');
+        image.onload = function () {
+            placeholder.innerHTML = '';
+            placeholder.appendChild(this);
+        }
+        image.src = base64Image;
+        return image;
+    }
+
+</script>
 
 </html>
