@@ -28,6 +28,7 @@ namespace Control
         void OnEnable()
         {
             Swan.Logging.Logger.RegisterLogger<UnityLogger>();
+            CheckCommandLineArguments();
             CreateWebServer(url);
             server.RunAsync();
         }
@@ -36,6 +37,21 @@ namespace Control
         {
             server.Dispose();
             Swan.Logging.Logger.UnregisterLogger<UnityLogger>();
+        }
+
+        protected void CheckCommandLineArguments()
+        {
+            string expectedArgument = "-controlUrl";
+            string[] args = System.Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] == expectedArgument && (i + 1) < args.Length)
+                {
+                    url = args[i + 1];
+                    Debug.Log($"Using argument -controlUrl:{url}");
+                    break;
+                }
+            }
         }
 
         protected virtual IElementFactory GetWebElementFactory()
