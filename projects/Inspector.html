@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            background: none;
+            margin: 0px;
+            border-color: magenta;
+            border-width: 1px;
+            border-style: dashed;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="placeholder">
+        <img id="screenshot" style="position:fixed" />
+    </div>
+</body>
+
+
+<script type="text/javascript">
+
+    //Control url
+    const url = "http://127.0.0.1:4723/wd/hub";
+
+    doAll(url);
+
+    async function doAll(baseUrl) {
+
+        const sessionId = await getSession(baseUrl);
+        const screenBase64 = await getScreenshot(baseUrl, sessionId);
+
+        var placeholder = document.getElementById("placeholder");
+        const image = displayBase64Image(placeholder, screenBase64);
+
+        const source = await getSource(baseUrl, sessionId);
+
+        useSource(source, image, placeholder);
+    }
+
+    function useSource(source, image, placeholder) {
+        //Parse source as html
+        parser = new DOMParser();
+        doc = parser.parseFromString(source, "text/html");
+
+        //Get the "scenes"
+        var root = doc.getElementsByTagName("scenes")[0];
+
+        //Adjust the style of the root node so the source aligns with the screenshot
+        root.style =
+            `
+            position:sticky;
+            left:${image.x};
+            top:${image.y};
+            width:${image.width};
+            height:${image.height}`;
+
+        //Same for all children
+        var all = root.getElementsByTagName("*");
+        for (var i = 0, max = all.length; i < max; i++) {
+            var element = all[i];
+            element.style = `position: fixed;
+            display:inline-block;
+            width: ${element.getAttribute("width")};
+            height: ${element.getAttribute("height")};
+            left: ${element.getAttribute("x")};
+            top: ${element.getAttribute("y")}`;
+        }
+
+        placeholder.appendChild(root);
+    }
+
+    async function getSession(baseUrl) {
+        const url = `${baseUrl}/session`;
+
+        const body = {
+            desiredCapabilities: {
+                ["appium:newCommandTimeout"]: 3600,
+                ["appium:connectHardwareKeyboard"]: true
+            }
+        }
+
+        const r = await fetch(url, {
+            method: 'POST', body: JSON.stringify(body)
+        });
+
+        const data = await r.json();
+        return data.sessionId;
+    }
+
+    async function getScreenshot(baseUrl, sessionId) {
+        const url = `${baseUrl}/session/${sessionId}/screenshot`;
+
+        const r = await fetch(url, {
+            method: 'GET'
+        });
+
+        const data = await r.json();
+
+        const blob = `data:image/png;base64,${(data.value)}`;
+        return blob;
+    }
+
+    async function getSource(baseUrl, sessionId) {
+        const url = `${baseUrl}/session/${sessionId}/source`;
+
+        const r = await fetch(url, {
+            method: 'GET'
+        });
+
+        const data = await r.json();
+        return data.value;
+    }
+
+    function displayBase64Image(placeholder, base64Image) {
+        var image = document.createElement('img');
+        image.onload = function () {
+            placeholder.innerHTML = '';
+            placeholder.appendChild(this);
+        }
+        image.src = base64Image;
+        return image;
+    }
+
+</script>
+
+</html>
