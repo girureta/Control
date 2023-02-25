@@ -28,9 +28,11 @@ namespace Control
 
             var renderer = sourceObject.GetComponent<Renderer>();
             if (renderer == null)
+            {
+                PopulateSourceWithChildren(xmlElement);
                 return;
+            }
 
-            //Rect
             Rect rect = new Rect();
             GetRect(renderer, ref rect);
             AddRectAttribute(xmlElement, rect);
@@ -38,6 +40,29 @@ namespace Control
             //Visible
             bool isVisible = GetIsVisible(renderer);
             AddVisibleAttribute(xmlElement, isVisible);
+        }
+
+        protected void PopulateSourceWithChildren(XmlElement xmlElement)
+        {
+            var renderers = sourceObject.GetComponentsInChildren<Renderer>();
+            if (renderers.Length == 0)
+            {
+                return;
+            }
+
+            Rect finalRect = new Rect();
+            GetRect(renderers[0], ref finalRect);
+
+            foreach (var rend in renderers)
+            {
+                Rect rect = new Rect();
+                GetRect(rend, ref rect);
+
+                var min = Vector2.Min(finalRect.min, rect.min);
+                var max = Vector2.Max(finalRect.max, rect.max);
+                finalRect = Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+            }
+            AddRectAttribute(xmlElement, finalRect);
         }
 
         protected bool GetIsVisible(Renderer renderer)
