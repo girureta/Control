@@ -56,10 +56,10 @@ namespace Control
 
         protected void GetRect(Renderer renderer, ref Rect rect)
         {
-            rect = GUIRectWithObject(renderer);
+            rect = GetScreenRect(renderer);
         }
 
-        public static Rect GUIRectWithObject(Renderer renderer)
+        public static Rect GetBoundsRect(Renderer renderer)
         {
             Vector3 cen = renderer.bounds.center;
             Vector3 ext = renderer.bounds.extents;
@@ -81,6 +81,35 @@ namespace Control
                 min = Vector2.Min(min, v);
                 max = Vector2.Max(max, v);
             }
+            var boxHeight = max.y - min.y;
+
+            var res = new Rect(min.x, Camera.main.pixelHeight - min.y - boxHeight, max.x - min.x, boxHeight);
+            res = new Rect(Mathf.RoundToInt(res.x), Mathf.RoundToInt(res.y), Mathf.RoundToInt(res.width), Mathf.RoundToInt(res.height));
+            return res;
+        }
+
+        public static Rect GetScreenRect(Renderer renderer)
+        {
+
+            var mesh = renderer.gameObject.GetComponent<MeshFilter>()?.sharedMesh;
+
+            if (mesh == null)
+                return new Rect();
+
+            var vertices = mesh.vertices;
+
+            Vector3 min = Vector3.positiveInfinity;
+            Vector3 max = Vector3.negativeInfinity;
+
+            foreach (var vertex in vertices)
+            {
+                var worldVertex = renderer.transform.TransformPoint(vertex);
+                var screenVertex = Camera.main.WorldToScreenPoint(worldVertex);
+
+                min = Vector2.Min(min, screenVertex);
+                max = Vector2.Max(max, screenVertex);
+            }
+
             var boxHeight = max.y - min.y;
 
             var res = new Rect(min.x, Camera.main.pixelHeight - min.y - boxHeight, max.x - min.x, boxHeight);

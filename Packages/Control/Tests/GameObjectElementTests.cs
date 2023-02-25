@@ -48,7 +48,7 @@ namespace Control.Tests
 
         protected override string GetExpectedPopulateSourceString()
         {
-            return @"<?xml version=""1.0"" encoding=""utf-8""?><GameObject name=""GO1"" x=""116"" y=""139"" width=""23"" height=""24"" visible=""true"" />";
+            return @"<?xml version=""1.0"" encoding=""utf-8""?><GameObject name=""GO1"" x=""117"" y=""139"" width=""22"" height=""22"" visible=""true"" />";
         }
 
         protected override bool GetWasiItClicked()
