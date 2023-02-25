@@ -38,6 +38,7 @@
         const source = await getSource(baseUrl, sessionId);
 
         useSource(source, image, placeholder);
+        subscribeToClicks(baseUrl, sessionId);
     }
 
     function useSource(source, image, placeholder) {
@@ -70,6 +71,18 @@
         }
 
         placeholder.appendChild(root);
+    }
+
+    function subscribeToClicks(baseUrl, sessionId) {
+        document.addEventListener('click', function (e) {
+            e = e || window.event;
+            var target = e.target || e.srcElement,
+                text = target.textContent || target.innerText;
+
+            console.log("Clicking", target);
+            clickElement(baseUrl, sessionId, target.getAttribute("id"));
+            location.reload();
+        }, false);
     }
 
     async function getSession(baseUrl) {
@@ -108,6 +121,17 @@
 
         const r = await fetch(url, {
             method: 'GET'
+        });
+
+        const data = await r.json();
+        return data.value;
+    }
+
+    async function clickElement(baseUrl, sessionId, elementId) {
+        const url = `${baseUrl}/session/${sessionId}/element/${elementId}/click`;
+
+        const r = await fetch(url, {
+            method: 'POST'
         });
 
         const data = await r.json();
