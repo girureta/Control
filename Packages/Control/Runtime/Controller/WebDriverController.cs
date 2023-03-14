@@ -213,6 +213,7 @@ namespace Control.WebDriver
             return response;
         }
 
+
         [Route(HttpVerb.Get, "/session/{id}/screenshot")]
         public GenericResponse GetScreenshot(string id)
         {
@@ -250,6 +251,25 @@ namespace Control.WebDriver
         public string GetSessions()
         {
             return "";
+        }
+
+        [Route(HttpVerb.Delete, "/session/{id}/window")]
+        public GenericResponse CloseWindow(string id)
+        {
+            return CloseApp(id);
+        }
+
+        [Route(HttpVerb.Post, "/session/{id}/appium/app/close")]
+        public GenericResponse CloseApp(string id)
+        {
+            helper.GetMainThreadTask(() => Application.Quit());
+            GenericResponse response = new GenericResponse
+            {
+                sessionId = id,
+                status = 0
+            };
+
+            return response;
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
