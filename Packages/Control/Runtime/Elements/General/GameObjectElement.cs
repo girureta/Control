@@ -140,7 +140,10 @@ namespace Control
             var mesh = renderer.gameObject.GetComponent<MeshFilter>()?.sharedMesh;
 
             if (mesh == null)
-                return new Rect();
+                return GetBoundsRect(renderer);
+
+            if (!mesh.isReadable)
+                return GetBoundsRect(renderer);
 
             var vertices = mesh.vertices;
 
