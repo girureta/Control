@@ -224,5 +224,16 @@ namespace Control
             var value = element.GetAttribute(name);
             return value;
         }
+
+        public bool? GetDisplayed(string elementId)
+        {
+            var element = FindWebElementById(elementId);
+
+            if (element == null)
+                return null;
+
+            var displayed = element.GetDisplayed();
+            return displayed;
+        }
     }
 }

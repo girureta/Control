@@ -15,6 +15,7 @@ namespace Control
         void Clear();
         void SendKeys(string value);
         string GetAttribute(string name);
+        bool? GetDisplayed();
     }
 
     public abstract class Element<T> : IElement
@@ -107,6 +108,11 @@ namespace Control
                 return GetText();
 
             return null;
+        }
+
+        public virtual bool? GetDisplayed()
+        {
+            return true;
         }
     }
 }

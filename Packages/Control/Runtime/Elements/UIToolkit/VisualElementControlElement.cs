@@ -115,6 +115,12 @@ namespace Control
         {
             return (string)sourceObject.GetType().GetProperty("text").GetValue(sourceObject, null);
         }
-    }
 
+        public override bool? GetDisplayed()
+        {
+            Debug.Log($"visible {sourceObject.visible}");
+            Debug.Log($"display {sourceObject.style.display}");
+            return sourceObject.visible && sourceObject.style.display == DisplayStyle.Flex;
+        }
+    }
 }

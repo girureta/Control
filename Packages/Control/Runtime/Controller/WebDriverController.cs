@@ -168,6 +168,20 @@ namespace Control.WebDriver
             };
         }
 
+        [Route(HttpVerb.Get, "/session/{id}/element/{elementId}/displayed")]
+        public GenericResponse GetDisplayed(string elementId)
+        {
+            bool? displayed = helper.GetMainThreadTask(() => uiDriver.GetDisplayed(elementId)).GetAwaiter().GetResult();
+
+            if (displayed == null)
+                HttpException.NotFound();
+
+            return new GenericResponse
+            {
+                value = displayed==true
+            };
+        }
+
         [Route(HttpVerb.Post, "/session/{id}/element/{elementId}/clear")]
         public GenericResponse ClearElement(string id, string elementId)
         {

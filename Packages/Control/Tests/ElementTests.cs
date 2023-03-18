@@ -53,6 +53,16 @@ namespace Control.Tests
         /// <returns></returns>
         protected abstract bool GetWasCleared();
 
+        /// <summary>
+        /// Used to make an element "displayed" or not.
+        /// By default all elements are "displayed" and the function doesnt implement the change
+        /// </summary>
+        /// <param name="displayed"></param>
+        /// <returns></returns>
+        protected virtual bool SetDisplayed(bool displayed)
+        {
+            return false;
+        }
 
         [SetUp]
         protected virtual void SetUp()
@@ -135,6 +145,21 @@ namespace Control.Tests
             var elementXml = TestUtils.GetXmlString(xmlElement);
             Debug.Log("Actual XML:" + elementXml);
             Assert.That(elementXml, Is.EqualTo(expectedXmlString));
+        }
+
+        [UnityTest]
+        public IEnumerator ElementsAreDisplayedByDefault()
+        {
+            yield return null;
+            Assert.That(element.GetDisplayed(), Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator SetDisplayedFalse_GetDisplayedFalse()
+        {
+            yield return null;
+            Assume.That(SetDisplayed(false), Is.True);
+            Assert.That(element.GetDisplayed(), Is.False);
         }
     }
 }

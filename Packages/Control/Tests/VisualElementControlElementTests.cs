@@ -18,6 +18,7 @@ namespace Control.Tests
         {
             testWindow = TestEditorWindow.Create();
             root = new TestVisualElement();
+            root.style.display = DisplayStyle.Flex;
             root.text = "SomeText";
             root.focusable = true;
             root.Focus();
@@ -90,6 +91,12 @@ namespace Control.Tests
         protected override bool GetWasCleared()
         {
             return string.IsNullOrEmpty(root.valueChanged) && string.IsNullOrEmpty(root.text);
+        }
+
+        protected override bool SetDisplayed(bool displayed)
+        {
+            root.style.display = displayed ? DisplayStyle.Flex : DisplayStyle.None;
+            return true;
         }
 
         [UnityTest]
