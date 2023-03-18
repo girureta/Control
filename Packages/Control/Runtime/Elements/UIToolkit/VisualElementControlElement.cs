@@ -22,7 +22,12 @@ namespace Control
         public override void PopulateSource(XmlElement xmlElement)
         {
             AddNameAttribute(xmlElement, sourceObject.name);
-            AddRectAttribute(xmlElement, WorldBoundsOnScreen());
+            AddRectAttribute(xmlElement, GetRect());
+        }
+
+        public override Rect GetRect()
+        {
+            return WorldBoundsOnScreen();
         }
 
         protected Rect WorldBoundsOnScreen()

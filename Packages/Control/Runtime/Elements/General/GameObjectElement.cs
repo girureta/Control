@@ -34,7 +34,7 @@ namespace Control
             }
 
             Rect rect = new Rect();
-            GetRect(renderer, ref rect);
+            GetRendererRect(renderer, ref rect);
             AddRectAttribute(xmlElement, rect);
 
             //Visible
@@ -44,25 +44,45 @@ namespace Control
 
         protected void PopulateSourceWithChildren(XmlElement xmlElement)
         {
+            var rect = GetRectInternal();
+
+            if (rect == null)
+                return;
+
+            AddRectAttribute(xmlElement, (Rect)rect);
+        }
+
+        public override Rect GetRect()
+        {
+            var rect = GetRectInternal();
+            if (rect == null)
+                return new Rect();
+
+            return (Rect)rect;
+        }
+
+        protected Rect? GetRectInternal()
+        {
             var renderers = sourceObject.GetComponentsInChildren<Renderer>();
             if (renderers.Length == 0)
             {
-                return;
+                return null;
             }
 
             Rect finalRect = new Rect();
-            GetRect(renderers[0], ref finalRect);
+            GetRendererRect(renderers[0], ref finalRect);
 
             foreach (var rend in renderers)
             {
                 Rect rect = new Rect();
-                GetRect(rend, ref rect);
+                GetRendererRect(rend, ref rect);
 
                 var min = Vector2.Min(finalRect.min, rect.min);
                 var max = Vector2.Max(finalRect.max, rect.max);
                 finalRect = Rect.MinMaxRect(min.x, min.y, max.x, max.y);
             }
-            AddRectAttribute(xmlElement, finalRect);
+
+            return finalRect;
         }
 
         protected bool GetIsVisible(Renderer renderer)
@@ -79,10 +99,11 @@ namespace Control
             return children;
         }
 
-        protected void GetRect(Renderer renderer, ref Rect rect)
+        protected void GetRendererRect(Renderer renderer, ref Rect rect)
         {
-            rect = GetScreenRect(renderer);
+            rect = GetRendererScreenRect(renderer);
         }
+
 
         public static Rect GetBoundsRect(Renderer renderer)
         {
@@ -113,7 +134,7 @@ namespace Control
             return res;
         }
 
-        public static Rect GetScreenRect(Renderer renderer)
+        public static Rect GetRendererScreenRect(Renderer renderer)
         {
 
             var mesh = renderer.gameObject.GetComponent<MeshFilter>()?.sharedMesh;

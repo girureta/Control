@@ -78,7 +78,8 @@ namespace Control
             var taskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
             var elementFactory = GetWebElementFactory();
-            var webDriver = new Driver(elementFactory);
+            var nativeHelper = NativeHelper.GetNativeHelper();
+            var webDriver = new Driver(elementFactory, nativeHelper);
             webDriverController = new WebDriverController(webDriver, taskScheduler);
 
             server = new WebServer(o => o
