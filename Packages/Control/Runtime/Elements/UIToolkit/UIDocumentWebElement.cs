@@ -23,7 +23,7 @@ namespace Control
 
         protected override object[] GetChildrenObjects()
         {
-            return new object[] { sourceObject.rootVisualElement };
+            return new object[] { sourceObject.rootVisualElement.panel.visualTree };
         }
     }
 

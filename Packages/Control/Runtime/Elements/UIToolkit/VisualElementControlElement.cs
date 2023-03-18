@@ -22,7 +22,12 @@ namespace Control
         public override void PopulateSource(XmlElement xmlElement)
         {
             AddNameAttribute(xmlElement, sourceObject.name);
-            AddRectAttribute(xmlElement, WorldBoundsOnScreen());
+            AddRectAttribute(xmlElement, GetRect());
+        }
+
+        public override Rect GetRect()
+        {
+            return WorldBoundsOnScreen();
         }
 
         protected Rect WorldBoundsOnScreen()
@@ -115,6 +120,12 @@ namespace Control
         {
             return (string)sourceObject.GetType().GetProperty("text").GetValue(sourceObject, null);
         }
-    }
 
+        public override bool? GetDisplayed()
+        {
+            Debug.Log($"visible {sourceObject.visible}");
+            Debug.Log($"display {sourceObject.style.display}");
+            return sourceObject.visible && sourceObject.style.display == DisplayStyle.Flex;
+        }
+    }
 }

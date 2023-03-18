@@ -2,6 +2,7 @@
     <ui:VisualElement name="SomeButtons" style="flex-grow: 1;">
         <ui:Button text="Button A" display-tooltip-when-elided="true" name="ButtonA" />
         <ui:Button text="Button B" display-tooltip-when-elided="true" name="ButtonB" style="flex-grow: 0; height: 25%; flex-shrink: 0;" />
+        <ui:DropdownField label="Dropdown" index="-1" choices="a,b,c" />
     </ui:VisualElement>
     <ui:TextField picking-mode="Ignore" label="A TextField" multiline="true" name="LogText" style="flex-grow: 1;" />
 </ui:UXML>

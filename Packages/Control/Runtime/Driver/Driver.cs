@@ -16,10 +16,12 @@ namespace Control
     public class Driver
     {
         private readonly IElementFactory elementFactory;
+        private readonly INativeHelper nativeHelper;
 
-        public Driver(IElementFactory elementFactory)
+        public Driver(IElementFactory elementFactory, INativeHelper nativeHelper)
         {
             this.elementFactory = elementFactory ?? throw new ArgumentNullException(nameof(elementFactory));
+            this.nativeHelper = nativeHelper;
         }
 
 
@@ -156,7 +158,25 @@ namespace Control
         public void ClickVisualElement(string elementId)
         {
             var webElement = FindWebElementById(elementId);
+
+            if (webElement == null)
+                return;
+
+            if (TryNativeClick(webElement))
+                return;
+
             webElement?.Click();
+        }
+
+        protected bool TryNativeClick(IElement element)
+        {
+            Debug.Log($"native {nativeHelper}");
+            if (nativeHelper == null)
+                return false;
+
+            var rect = element.GetRect();
+            nativeHelper.Click(rect.center);
+            return true;
         }
 
         /// <summary>
@@ -223,6 +243,17 @@ namespace Control
 
             var value = element.GetAttribute(name);
             return value;
+        }
+
+        public bool? GetDisplayed(string elementId)
+        {
+            var element = FindWebElementById(elementId);
+
+            if (element == null)
+                return null;
+
+            var displayed = element.GetDisplayed();
+            return displayed;
         }
     }
 }

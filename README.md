@@ -39,9 +39,7 @@ Currently some parts of **Scene/GameObject/Component** and **UIToolkit**  are ex
 | Clear | Clear the text of an element| :heavy_check_mark: | :heavy_check_mark: |
 | TakeScreenshot | Take a screenshot of the whole application | :heavy_check_mark: | :heavy_check_mark: |
 | GetAttribute | Returns an element's [attribute]( docs/getElementAttribute.md) | :heavy_check_mark: | :heavy_check_mark: |
-
-
-
+| Displayed | Indicates if an element id displayed | :heavy_check_mark: | :heavy_check_mark: |
 
 # Usage
 

@@ -15,6 +15,7 @@ namespace Control.WebDriver
             if (logEvent.Exception != null)
             {
                 Debug.LogException(logEvent.Exception);
+                Debug.Log(logEvent.Message);
             }
         }
 

@@ -9,16 +9,18 @@ namespace Control.Tests
     {
         Driver driver;
         Mock<IElementFactory> mockFactory;
+        Mock<INativeHelper> mockNativeHelper;
         Mock<IElement> root;
 
         [SetUp]
         public void SetUp()
         {
             mockFactory = new Mock<IElementFactory>();
+            mockNativeHelper = new Mock<INativeHelper>();
             root = new Mock<IElement>();
             root.Setup(x => x.GetId()).Returns("rootId");
             root.Setup(x => x.GetTag()).Returns("rootTag");
-            driver = new Driver(mockFactory.Object);
+            driver = new Driver(mockFactory.Object, mockNativeHelper.Object);
         }
 
         [Test]

@@ -24,7 +24,7 @@ namespace Control.WebDriver
     {
         public string sessionId { get; set; }
         public int status { get; set; }
-        public string value { get; set; }
+        public object value { get; set; }
     }
 
     public class SetValueParameter
