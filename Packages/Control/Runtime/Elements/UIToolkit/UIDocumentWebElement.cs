@@ -25,6 +25,11 @@ namespace Control
         {
             return new object[] { sourceObject.rootVisualElement.panel.visualTree };
         }
+
+        public override bool? GetDisplayed()
+        {
+            return true;
+        }
     }
 
 }

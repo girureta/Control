@@ -95,5 +95,18 @@ namespace Control
                 server.StateChanged += (s, e) => Debug.Log(e.NewState);
             }
         }
+
+        [RuntimeInitializeOnLoadMethod]
+        static void TryLoadControl()
+        {
+            var control = GameObject.FindObjectOfType<ControlBehaviour>();
+
+            if (control != null)
+            {
+                return;
+            }
+            Debug.Log("Creating control GameObject");
+            new GameObject("Control").AddComponent<ControlBehaviour>();
+        }
     }
 }
