@@ -29,7 +29,9 @@ namespace Control.Tests
             //Arrange
             var child = new Mock<IElement>();
             child.Setup(x => x.GetId()).Returns("childId");
+            child.Setup(x => x.GetDisplayed()).Returns(true);
             root.Setup(x => x.GetChildren(mockFactory.Object)).Returns(new IElement[] { child.Object });
+            root.Setup(x => x.GetDisplayed()).Returns(true);
             mockFactory.Setup(X => X.GetRootWebElement()).Returns(root.Object);
 
             //Act
@@ -46,6 +48,7 @@ namespace Control.Tests
             var mockChild = new Mock<IElement>();
             mockChild.Setup(x => x.GetId()).Returns("childId");
             mockChild.Setup(x => x.GetTag()).Returns("childTag");
+            mockChild.Setup(x => x.GetDisplayed()).Returns(true);
             root.Setup(x => x.GetChildren(mockFactory.Object)).Returns(new IElement[] { mockChild.Object });
             mockFactory.Setup(X => X.GetRootWebElement()).Returns(root.Object);
 
@@ -64,22 +67,26 @@ namespace Control.Tests
 
             var mockRootWebElementA22 = new Mock<IElement>();
             mockRootWebElementA22.Setup(x => x.GetTag()).Returns("MockTagA");
+            mockRootWebElementA22.Setup(x => x.GetDisplayed()).Returns(true);
             mockRootWebElementA22.Setup(x => x.GetChildren(mockFactory.Object)).Returns(new IElement[0] {
             });
 
             var mockRootWebElementA1 = new Mock<IElement>();
             mockRootWebElementA1.Setup(x => x.GetTag()).Returns("MockTagA1");
+            mockRootWebElementA1.Setup(x => x.GetDisplayed()).Returns(true);
             mockRootWebElementA1.Setup(x => x.GetChildren(mockFactory.Object)).Returns(new IElement[] {
                 mockRootWebElementA22.Object
             });
 
             var mockRootWebElementA2 = new Mock<IElement>();
             mockRootWebElementA2.Setup(x => x.GetTag()).Returns("MockTagA2");
+            mockRootWebElementA2.Setup(x => x.GetDisplayed()).Returns(true);
             mockRootWebElementA2.Setup(x => x.GetChildren(mockFactory.Object)).Returns(new IElement[0] {
             });
 
             var mockRootWebElementA = new Mock<IElement>();
             mockRootWebElementA.Setup(x => x.GetTag()).Returns("MockTagA");
+            mockRootWebElementA.Setup(x => x.GetDisplayed()).Returns(true);
             mockRootWebElementA.Setup(x => x.GetChildren(mockFactory.Object)).Returns(new IElement[] {
                 mockRootWebElementA1.Object,
                 mockRootWebElementA2.Object

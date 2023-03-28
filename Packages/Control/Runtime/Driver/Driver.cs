@@ -62,7 +62,8 @@ namespace Control
                     rootElement = xmlElement;
                 }
 
-                var children = webElement.GetChildren(elementFactory).ToList();
+                var children = webElement.GetChildren(elementFactory).Where(c => c.GetDisplayed() == true).ToList();
+
                 children.ForEach(x => webElementToParentXMLElement.Add(x, xmlElement));
                 children.ForEach(x => queueWebElements.Enqueue(x));
             }
